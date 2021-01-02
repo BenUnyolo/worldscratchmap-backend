@@ -49,7 +49,7 @@ def login():
     # check if password is correct, if so create token
     if check_password_hash(user['pass'], auth.password):
         token = jwt.encode({'user_id': user['user_id'], 'exp': datetime.datetime.utcnow(
-        ) + datetime.timedelta(minutes=120)}, current_app.config['SECRET_KEY'])
+        ) + datetime.timedelta(minutes=120)}, current_app.config['SECRET_KEY'], algorithm="HS256")
 
         userRes = {
             "first_name": user["first_name"],

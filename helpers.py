@@ -15,7 +15,7 @@ def token_required(f):
             return jsonify({'message': 'Token is missing!'}), 401
 
         try:
-            data = jwt.decode(token, current_app.config['SECRET_KEY'])
+            data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=["HS256"])
             # TODO move next 2 bits out?
             try:
                 cur = mysql.connection.cursor()
