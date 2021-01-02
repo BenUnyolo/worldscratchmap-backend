@@ -1,5 +1,6 @@
 from flask import Flask
 import os
+from flask_cors import CORS
 
 from extensions import mysql
 from helpers import *
@@ -7,6 +8,7 @@ from user.routes import user
 from map.routes import map
 
 app = Flask(__name__)
+CORS(app)
 
 app.config['MYSQL_USER'] = os.environ.get("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.environ.get("MYSQL_PASSWORD")
