@@ -122,7 +122,7 @@ def create_user():
     check_email = cur.fetchall()
     if check_email:
         cur.close()
-        return jsonify({'message': "email exists"}), 400
+        return jsonify({'message': "This email has already been used, please choose another"}), 400
 
     # hash password
     hashed_password = generate_password_hash(data['password'], method='sha256')

@@ -66,7 +66,7 @@ def get_countries(user_id):
     try:
         cur = mysql.connection.cursor()
     except Exception as err:
-        return jsonify({"message": "Issue connecting with database2"}), 500
+        return jsonify({"message": "Issue connecting with database"}), 500
 
     # check if user exists
     user_id = int(user_id)
@@ -96,16 +96,14 @@ def delete_country(current_user, country):
     # TODO figure out why this code doesn't throw exception when random stuff passed in (object)
     try:
         cur = mysql.connection.cursor()
-        print("we get here")
     except Exception as err:
-        return "Issue connecting with database"
+        return jsonify({'message': "Database issue"}), 500
 
     try:
         cur.execute('''DELETE FROM visited
             WHERE user_id = %s AND country_code = %s''', [current_user['user_id'], country])
         mysql.connection.commit()
-        print("and here")
     except Exception as err:
-        return str(err)
+        return jsonify({'message': "Looks like it's already deleted"}), 400
 
     return jsonify("Country deleted")
